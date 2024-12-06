@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KIU Stadium Reservation</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Reserve a Stadium</h1>
+        <!-- Flashed Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <!-- Reservation Form -->
+        <form action="/reserve" method="POST">
+            <label for="student_id">Student ID:</label>
+            <input type="text" id="student_id" name="student_id" required>
+
+            <label for="stadium_id">Select Stadium:</label>
+            <select id="stadium_id" name="stadium_id" required>
+                {% for stadium in stadiums %}
+                <option value="{{ stadium[0] }}">{{ stadium[1] }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="starttime">Start Time:</label>
+            <input type="datetime-local" id="starttime" name="starttime" required>
+
+            <label for="endtime">End Time:</label>
+            <input type="datetime-local" id="endtime" name="endtime" required>
+
+            <button type="submit">Reserve</button>
+        </form>
+    </div>
+</body>
+</html>
